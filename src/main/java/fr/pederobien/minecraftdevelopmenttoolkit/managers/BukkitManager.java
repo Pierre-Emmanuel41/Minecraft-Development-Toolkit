@@ -16,6 +16,7 @@ import org.bukkit.command.CommandException;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.scoreboard.ScoreboardManager;
 
 import com.google.common.collect.ImmutableList;
@@ -119,6 +120,15 @@ public class BukkitManager {
 	 */
 	public static ScoreboardManager getScoreboardManager() {
 		return Bukkit.getScoreboardManager();
+	}
+
+	/**
+	 * Gets the plugin manager for interfacing with plugins.
+	 *
+	 * @return a plugin manager for this Server instance
+	 */
+	public static PluginManager getPluginManager() {
+		return Bukkit.getServer().getPluginManager();
 	}
 
 	/**
