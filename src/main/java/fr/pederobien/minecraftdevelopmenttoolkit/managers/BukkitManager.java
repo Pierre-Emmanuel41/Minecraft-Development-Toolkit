@@ -156,4 +156,17 @@ public class BukkitManager {
 	public static Stream<Player> getOnlineOperators() {
 		return getOperators().stream().map(p -> p.getPlayer()).filter(p -> p != null);
 	}
+
+	/**
+	 * Broadcast a message to all players.
+	 * <p>
+	 * This is the same as calling {@link Bukkit#broadcast(java.lang.String, java.lang.String)} to
+	 * {@link Server#BROADCAST_CHANNEL_USERS}
+	 *
+	 * @param message the message
+	 * @return the number of players
+	 */
+	public static void broadcastMessage(String message) {
+		Bukkit.broadcastMessage(message);
+	}
 }
