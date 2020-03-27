@@ -241,13 +241,26 @@ public class PlayerManager {
 	}
 
 	/**
+	 * Get a stream that contains all player that have the specified game mode from the given stream.
+	 * 
+	 * @param players The initial stream used to perform a selection.
+	 * @param mode    The condition of the previous selection.
+	 * @return A steam that contains all players from the initial stream with the specified game mode.
+	 */
+	public static Stream<Player> getPlayersOnMode(Stream<Player> players, GameMode mode) {
+		return players.filter(p -> p.getGameMode().equals(mode));
+	}
+
+	/**
 	 * Get a stream that contains all player with the specified game mode.
 	 * 
 	 * @param mode The game mode used to filter the stream returned by {@link #getPlayers()}
 	 * @return A stream that contains all players with the specified game mode.
+	 * 
+	 * @see #getPlayersOnMode(Stream, GameMode)
 	 */
 	public static Stream<Player> getPlayersOnMode(GameMode mode) {
-		return getPlayers().filter(p -> p.getGameMode().equals(mode));
+		return getPlayersOnMode(getPlayers(), mode);
 	}
 
 	/**
