@@ -163,14 +163,26 @@ public class TeamManager {
 	}
 
 	/**
-	 * Create a team on the server.
+	 * Create a team on the server. To simplify the way using this method, if you don't want to specify the display name of the team,
+	 * then displayName = null.
 	 * 
 	 * @param teamName    The name of the team.
 	 * @param displayName The display name of the team.
 	 */
 	public static Team createTeam(String teamName, String displayName) {
-		BukkitManager.dispatchCommand("team add " + teamName + " " + "\"" + displayName + "\"");
+		StringBuilder builder = new StringBuilder("team add " + teamName);
+		builder.append(displayName == null ? "" : "\"" + displayName + "\"");
+		BukkitManager.dispatchCommand(builder.toString());
 		return getTeam(teamName).get();
+	}
+
+	/**
+	 * Create a team on the server using method {@link #createTeam(String, String)} with displayName equals null.
+	 * 
+	 * @param teamName The name of the team.
+	 */
+	public static Team createTeam(String teamName) {
+		return createTeam(teamName, null);
 	}
 
 	/**
