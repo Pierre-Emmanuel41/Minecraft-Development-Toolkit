@@ -6,9 +6,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IExplanation;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IGenericEdition;
 
-public abstract class AbstractGenericEdition<T> implements IGenericEdition<T> {
+public abstract class AbstractGenericEdition<T extends IExplanation> implements IGenericEdition<T> {
 	private String label;
 	private T explanation;
 

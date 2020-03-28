@@ -9,10 +9,11 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 import fr.pederobien.minecraftdevelopmenttoolkit.exceptions.NotAvailableEditionException;
-import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IMapEdition;
+import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IExplanation;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IManagedEdition;
+import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IMapEdition;
 
-public class AbstractMapEdition<T, U, V extends IManagedEdition<U>> extends AbstractGenericEdition<T> implements IMapEdition<T, U, V> {
+public class AbstractMapEdition<T extends IExplanation, U, V extends IManagedEdition<U>> extends AbstractGenericEdition<T> implements IMapEdition<T, U, V> {
 	private V parent;
 	private boolean available, modifiable;
 	private Map<String, IMapEdition<T, U, V>> editions;
