@@ -2,6 +2,16 @@ package fr.pederobien.minecraftdevelopmenttoolkit.interfaces;
 
 import java.util.Map;
 
+/**
+ * 
+ * @author Pierre-Emmanuel
+ *
+ * @param <T> The type of the explanation.
+ * @param <U> The type of element to add to this node edition.
+ * @param <V> The type in which this edition is returned.
+ * 
+ * @see IGenericEdition
+ */
 public interface INodeEdition<T, U extends IGenericEdition<T>, V> extends IGenericEdition<T> {
 
 	/**

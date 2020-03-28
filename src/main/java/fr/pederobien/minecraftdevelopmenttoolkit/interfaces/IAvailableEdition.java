@@ -1,5 +1,11 @@
 package fr.pederobien.minecraftdevelopmenttoolkit.interfaces;
 
+/**
+ * 
+ * @author Pierre-Emmanuel
+ *
+ * @param <T> The type in which this edition is returned.
+ */
 public interface IAvailableEdition<T> {
 
 	/**

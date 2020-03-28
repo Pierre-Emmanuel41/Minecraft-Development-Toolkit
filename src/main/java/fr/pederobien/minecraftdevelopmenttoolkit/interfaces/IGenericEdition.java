@@ -2,6 +2,15 @@ package fr.pederobien.minecraftdevelopmenttoolkit.interfaces;
 
 import org.bukkit.command.TabCompleter;
 
+/**
+ * 
+ * @author Pierre-Emmanuel
+ *
+ * @param <T> The type of the explanation.
+ * 
+ * @see TabCompleter
+ * @see Comparable
+ */
 public interface IGenericEdition<T> extends TabCompleter, Comparable<IGenericEdition<T>> {
 
 	/**

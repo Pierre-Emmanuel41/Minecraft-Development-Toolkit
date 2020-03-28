@@ -1,5 +1,11 @@
 package fr.pederobien.minecraftdevelopmenttoolkit.interfaces;
 
+/**
+ * 
+ * @author Pierre-Emmanuel
+ *
+ * @param <T> The type of the object to modify.
+ */
 public interface IManagedEdition<T> {
 
 	/**
