@@ -2,7 +2,7 @@ package fr.pederobien.minecraftdevelopmenttoolkit.interfaces;
 
 import org.bukkit.command.CommandExecutor;
 
-public interface IMapEdition<T, U, V extends IParentEdition<U>> extends IAvailableEdition<IMapEdition<T, U, V>>, IModifiableEdition<IMapEdition<T, U, V>>,
+public interface IMapEdition<T, U, V extends IManagedEdition<U>> extends IAvailableEdition<IMapEdition<T, U, V>>, IModifiableEdition<IMapEdition<T, U, V>>,
 		INodeEdition<T, IMapEdition<T, U, V>, IMapEdition<T, U, V>>, CommandExecutor {
 
 	/**

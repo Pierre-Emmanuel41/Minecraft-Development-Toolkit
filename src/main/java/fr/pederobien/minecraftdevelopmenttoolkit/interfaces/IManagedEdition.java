@@ -1,6 +1,6 @@
 package fr.pederobien.minecraftdevelopmenttoolkit.interfaces;
 
-public interface IParentEdition<T> {
+public interface IManagedEdition<T> {
 
 	/**
 	 * @return The object managed by this parent edition
