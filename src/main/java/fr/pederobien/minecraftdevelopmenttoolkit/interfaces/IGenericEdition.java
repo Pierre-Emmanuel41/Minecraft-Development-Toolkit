@@ -11,7 +11,7 @@ public interface IGenericEdition<T> extends TabCompleter, Comparable<IGenericEdi
 
 	/**
 	 * @param T A generic parameter used to get different type of explanation. In most case, the explanation is a String. But it could
-	 *          append that developpers need more than a simple String.
+	 *          append that developers need more than a simple String.
 	 * @return An explanation used to explain what this argument does for the main command.
 	 */
 	T getExplanation();
