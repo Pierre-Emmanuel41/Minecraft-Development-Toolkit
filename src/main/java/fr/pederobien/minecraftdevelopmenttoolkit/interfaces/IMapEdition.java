@@ -2,7 +2,7 @@ package fr.pederobien.minecraftdevelopmenttoolkit.interfaces;
 
 import org.bukkit.command.CommandExecutor;
 
-public interface IMapEdition<T, U, V extends IParentEdition<T>> extends IAvailableEdition<IMapEdition<T, U, V>>, IModifiableEdition<IMapEdition<T, U, V>>,
+public interface IMapEdition<T, U, V extends IParentEdition<U>> extends IAvailableEdition<IMapEdition<T, U, V>>, IModifiableEdition<IMapEdition<T, U, V>>,
 		INodeEdition<T, IMapEdition<T, U, V>, IMapEdition<T, U, V>>, CommandExecutor {
 
 	/**
@@ -11,4 +11,9 @@ public interface IMapEdition<T, U, V extends IParentEdition<T>> extends IAvailab
 	 * @param parent The parent that contains the object to modify by this edition.
 	 */
 	void setParent(V parent);
+
+	/**
+	 * @return the parent of this edition that contains the object to modify.
+	 */
+	V getParent();
 }
