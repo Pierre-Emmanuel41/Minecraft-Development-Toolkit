@@ -12,7 +12,7 @@ import java.util.Map;
  * 
  * @see IGenericEdition
  */
-public interface INodeEdition<T extends IExplanation, U extends IGenericEdition<T>, V> extends IGenericEdition<T> {
+public interface INodeEdition<T, U extends IGenericEdition<T>, V> extends IGenericEdition<T> {
 
 	/**
 	 * Add element to this node edition. This element is stored into a Map with key is {@link IGenericEdition#getLabel()} and the

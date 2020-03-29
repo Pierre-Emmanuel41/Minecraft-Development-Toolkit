@@ -11,7 +11,7 @@ import org.bukkit.command.TabCompleter;
  * @see TabCompleter
  * @see Comparable
  */
-public interface IGenericEdition<T extends IExplanation> extends TabCompleter, Comparable<IGenericEdition<T>> {
+public interface IGenericEdition<T> extends TabCompleter, Comparable<IGenericEdition<T>> {
 
 	/**
 	 * @return The label of this edition. It is shown as minecraft command argument.
