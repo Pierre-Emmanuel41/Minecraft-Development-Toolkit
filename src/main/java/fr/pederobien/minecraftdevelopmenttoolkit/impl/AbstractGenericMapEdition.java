@@ -10,18 +10,18 @@ import org.bukkit.command.CommandSender;
 
 import fr.pederobien.minecraftdevelopmenttoolkit.exceptions.NotAvailableEditionException;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IManagedEdition;
-import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IMapEdition;
+import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IGenericMapEdition;
 
-public class AbstractMapEdition<T, U, V extends IManagedEdition<U>> extends AbstractGenericEdition<T> implements IMapEdition<T, U, V> {
+public class AbstractGenericMapEdition<T, U, V extends IManagedEdition<U>> extends AbstractGenericEdition<T> implements IGenericMapEdition<T, U, V> {
 	private V parent;
 	private boolean available, modifiable;
-	private Map<String, IMapEdition<T, U, V>> editions;
+	private Map<String, IGenericMapEdition<T, U, V>> editions;
 
-	public AbstractMapEdition(String label, T explanation) {
+	public AbstractGenericMapEdition(String label, T explanation) {
 		super(label, explanation);
 		available = true;
 		modifiable = true;
-		editions = new HashMap<String, IMapEdition<T, U, V>>();
+		editions = new HashMap<String, IGenericMapEdition<T, U, V>>();
 	}
 
 	@Override
@@ -30,11 +30,11 @@ public class AbstractMapEdition<T, U, V extends IManagedEdition<U>> extends Abst
 	}
 
 	@Override
-	public IMapEdition<T, U, V> setAvailable(boolean available) {
+	public IGenericMapEdition<T, U, V> setAvailable(boolean available) {
 		if (!modifiable)
 			return this;
 		this.available = available;
-		for (Map.Entry<String, IMapEdition<T, U, V>> entry : editions.entrySet())
+		for (Map.Entry<String, IGenericMapEdition<T, U, V>> entry : editions.entrySet())
 			entry.getValue().setAvailable(available);
 		return this;
 	}
@@ -45,32 +45,32 @@ public class AbstractMapEdition<T, U, V extends IManagedEdition<U>> extends Abst
 	}
 
 	@Override
-	public IMapEdition<T, U, V> setModifiable(boolean modifiable) {
+	public IGenericMapEdition<T, U, V> setModifiable(boolean modifiable) {
 		this.modifiable = modifiable;
 		return this;
 	}
 
 	@Override
-	public IMapEdition<T, U, V> addEdition(IMapEdition<T, U, V> elt) {
+	public IGenericMapEdition<T, U, V> addEdition(IGenericMapEdition<T, U, V> elt) {
 		editions.put(elt.getLabel(), elt);
 		return this;
 	}
 
 	@Override
-	public IMapEdition<T, U, V> removeEdition(IMapEdition<T, U, V> elt) {
+	public IGenericMapEdition<T, U, V> removeEdition(IGenericMapEdition<T, U, V> elt) {
 		editions.remove(elt.getLabel());
 		return this;
 	}
 
 	@Override
-	public Map<String, IMapEdition<T, U, V>> getChildren() {
+	public Map<String, IGenericMapEdition<T, U, V>> getChildren() {
 		return Collections.unmodifiableMap(editions);
 	}
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
 		try {
-			IMapEdition<T, U, V> edition = editions.get(args[0]);
+			IGenericMapEdition<T, U, V> edition = editions.get(args[0]);
 
 			// Edition not recognised, display all children available editions associated to this edition.
 			if (edition == null)
@@ -101,7 +101,7 @@ public class AbstractMapEdition<T, U, V extends IManagedEdition<U>> extends Abst
 	@Override
 	public void setParent(V parent) {
 		this.parent = parent;
-		for (Map.Entry<String, IMapEdition<T, U, V>> entry : editions.entrySet())
+		for (Map.Entry<String, IGenericMapEdition<T, U, V>> entry : editions.entrySet())
 			entry.getValue().setParent(parent);
 	}
 

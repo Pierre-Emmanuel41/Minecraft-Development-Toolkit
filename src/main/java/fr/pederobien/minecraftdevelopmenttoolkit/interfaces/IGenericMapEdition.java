@@ -16,8 +16,8 @@ import org.bukkit.command.CommandExecutor;
  * @see INodeEdition
  * @see CommandExecutor
  */
-public interface IMapEdition<T, U, V extends IManagedEdition<U>> extends IAvailableEdition<IMapEdition<T, U, V>>, IModifiableEdition<IMapEdition<T, U, V>>,
-		INodeEdition<T, IMapEdition<T, U, V>, IMapEdition<T, U, V>>, CommandExecutor {
+public interface IGenericMapEdition<T, U, V extends IManagedEdition<U>> extends IAvailableEdition<IGenericMapEdition<T, U, V>>, IModifiableEdition<IGenericMapEdition<T, U, V>>,
+		INodeEdition<T, IGenericMapEdition<T, U, V>, IGenericMapEdition<T, U, V>>, CommandExecutor {
 
 	/**
 	 * Set the parent of this edition. This parent contains the object managed by this edition and all inherited interfaces/classes.
