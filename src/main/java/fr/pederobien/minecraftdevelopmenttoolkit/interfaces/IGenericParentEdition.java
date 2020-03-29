@@ -2,8 +2,8 @@ package fr.pederobien.minecraftdevelopmenttoolkit.interfaces;
 
 import org.bukkit.command.CommandExecutor;
 
-public interface IGenericParentEdition<T, U> extends IManagedEdition<U>, IAvailableEdition<IGenericParentEdition<T, U>>, IModifiableEdition<IGenericParentEdition<T, U>>,
-		INodeEdition<T, IGenericMapEdition<T, U, IGenericParentEdition<T, U>>, IGenericParentEdition<T, U>>, CommandExecutor {
+public interface IGenericParentEdition<T, U, V extends IManagedEdition<U>> extends IManagedEdition<U>, IAvailableEdition<IGenericParentEdition<T, U, V>>,
+		IModifiableEdition<IGenericParentEdition<T, U, V>>, INodeEdition<T, IGenericMapEdition<T, U, V>, IGenericParentEdition<T, U, V>>, CommandExecutor {
 
-	IGenericParentEdition<T, U> setHelper(IHelper<T, U> helper);
+	IGenericParentEdition<T, U, V> setHelper(IHelper<T, U, V> helper);
 }

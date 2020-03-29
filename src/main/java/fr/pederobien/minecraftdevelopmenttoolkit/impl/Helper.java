@@ -12,12 +12,13 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IGenericEdition;
-import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IHelper;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IGenericMapEdition;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IGenericParentEdition;
+import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IHelper;
+import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IManagedEdition;
 
-public abstract class Helper<T, U> extends AbstractGenericEdition<T> implements IHelper<T, U> {
-	private IGenericParentEdition<T, U> parent;
+public abstract class Helper<T, U, V extends IManagedEdition<U>> extends AbstractGenericEdition<T> implements IHelper<T, U, V> {
+	private IGenericParentEdition<T, U, V> parent;
 
 	public Helper(T explanation) {
 		super("help", explanation);
@@ -26,8 +27,8 @@ public abstract class Helper<T, U> extends AbstractGenericEdition<T> implements 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
 		try {
-			Collection<IGenericMapEdition<T, U, IGenericParentEdition<T, U>>> values = parent.getChildren().values();
-			IGenericMapEdition<T, U, IGenericParentEdition<T, U>> edition = parent.getChildren().get(args[0]);
+			Collection<IGenericMapEdition<T, U, V>> values = parent.getChildren().values();
+			IGenericMapEdition<T, U, V> edition = parent.getChildren().get(args[0]);
 
 			for (int i = 1; i < args.length; i++) {
 				if (edition != null) {
@@ -42,7 +43,7 @@ public abstract class Helper<T, U> extends AbstractGenericEdition<T> implements 
 	}
 
 	@Override
-	public IHelper<T, U> setParent(IGenericParentEdition<T, U> parent) {
+	public IHelper<T, U, V> setParent(IGenericParentEdition<T, U, V> parent) {
 		this.parent = parent;
 		return this;
 	}
@@ -50,7 +51,7 @@ public abstract class Helper<T, U> extends AbstractGenericEdition<T> implements 
 	@Override
 	public void help(CommandSender sender, String[] args) {
 		try {
-			IGenericMapEdition<T, U, IGenericParentEdition<T, U>> edition = parent.getChildren().get(args[0]);
+			IGenericMapEdition<T, U, V> edition = parent.getChildren().get(args[0]);
 			for (int i = 1; i < args.length; i++)
 				if (edition != null)
 					edition = edition.getChildren().get(args[i]);
@@ -70,15 +71,15 @@ public abstract class Helper<T, U> extends AbstractGenericEdition<T> implements 
 	 */
 	protected abstract void sendMessage(Player player, List<T> explanations);
 
-	private void sendMessage(Player player, IGenericParentEdition<T, U> parent) {
+	private void sendMessage(Player player, IGenericParentEdition<T, U, V> parent) {
 		sendExplanations(player, concat(parent, parent.getChildren()));
 	}
 
-	private void sendMessage(Player player, IGenericMapEdition<T, U, IGenericParentEdition<T, U>> edition) {
+	private void sendMessage(Player player, IGenericMapEdition<T, U, V> edition) {
 		sendExplanations(player, concat(edition, edition.getChildren()));
 	}
 
-	private Stream<T> concat(IGenericEdition<T> genericEdition, Map<String, IGenericMapEdition<T, U, IGenericParentEdition<T, U>>> map) {
+	private Stream<T> concat(IGenericEdition<T> genericEdition, Map<String, IGenericMapEdition<T, U, V>> map) {
 		return Stream.concat(Stream.of(genericEdition.getExplanation()), map.values().stream().filter(e -> e.isAvailable()).map(e -> e.getExplanation()));
 	}
 
@@ -86,7 +87,7 @@ public abstract class Helper<T, U> extends AbstractGenericEdition<T> implements 
 		sendMessage(player, explanations.collect(Collectors.toList()));
 	}
 
-	private Stream<String> filter(Stream<IGenericMapEdition<T, U, IGenericParentEdition<T, U>>> stream) {
+	private Stream<String> filter(Stream<IGenericMapEdition<T, U, V>> stream) {
 		return stream.filter(e -> e.isAvailable()).filter(e -> !e.getLabel().equals("help")).map(e -> e.getLabel());
 	}
 }

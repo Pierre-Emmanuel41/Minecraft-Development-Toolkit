@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender;
  * @param <T> The type of the explanation.
  * @param <U> The type of the object managed by {@link IManagedEdition}.
  */
-public interface IHelper<T, U> extends IGenericEdition<T> {
+public interface IHelper<T, U, V extends IManagedEdition<U>> extends IGenericEdition<T> {
 
 	/**
 	 * Set the parent used to show the explanation of each children generic edition.
@@ -17,7 +17,7 @@ public interface IHelper<T, U> extends IGenericEdition<T> {
 	 * @param parent The parent that contains generic edition.
 	 * @return This helper.
 	 */
-	IHelper<T, U> setParent(IGenericParentEdition<T, U> parent);
+	IHelper<T, U, V> setParent(IGenericParentEdition<T, U, V> parent);
 
 	/**
 	 * Send to the given command sender the explanation of each generic edition of the parent.
