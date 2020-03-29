@@ -9,8 +9,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 import fr.pederobien.minecraftdevelopmenttoolkit.exceptions.NotAvailableEditionException;
-import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IManagedEdition;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IGenericMapEdition;
+import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IManagedEdition;
 
 public class AbstractGenericMapEdition<T, U, V extends IManagedEdition<U>> extends AbstractGenericEdition<T> implements IGenericMapEdition<T, U, V> {
 	private V parent;
@@ -34,8 +34,8 @@ public class AbstractGenericMapEdition<T, U, V extends IManagedEdition<U>> exten
 		if (!modifiable)
 			return this;
 		this.available = available;
-		for (Map.Entry<String, IGenericMapEdition<T, U, V>> entry : editions.entrySet())
-			entry.getValue().setAvailable(available);
+		for (IGenericMapEdition<T, U, V> edition : editions.values())
+			edition.setAvailable(available);
 		return this;
 	}
 
@@ -72,9 +72,9 @@ public class AbstractGenericMapEdition<T, U, V extends IManagedEdition<U>> exten
 		try {
 			IGenericMapEdition<T, U, V> edition = editions.get(args[0]);
 
-			// Edition not recognised, display all children available editions associated to this edition.
+			// Edition not recognised, display all available children editions.
 			if (edition == null)
-				return filter(editions.entrySet().stream().map(e -> e.getValue().getLabel()).filter(l -> editions.get(l).isAvailable()), args[0]);
+				return filter(editions.values().stream().filter(e -> e.isAvailable()).map(e -> e.getLabel()), args[0]);
 
 			// Return an empty list if there are no edition corresponding to the given args[0] parameter.
 			if (!edition.isAvailable())
@@ -91,18 +91,20 @@ public class AbstractGenericMapEdition<T, U, V extends IManagedEdition<U>> exten
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		String editionLabel = args[0];
-		if (editions.get(editionLabel).isAvailable())
-			editions.get(editionLabel).onCommand(sender, command, label, extract(args, 1));
-		else
+		IGenericMapEdition<T, U, V> edition = editions.get(editionLabel);
+
+		if (!edition.isAvailable())
 			throw new NotAvailableEditionException(editionLabel);
+
+		edition.onCommand(sender, command, label, extract(args, 1));
 		return true;
 	}
 
 	@Override
 	public void setParent(V parent) {
 		this.parent = parent;
-		for (Map.Entry<String, IGenericMapEdition<T, U, V>> entry : editions.entrySet())
-			entry.getValue().setParent(parent);
+		for (IGenericMapEdition<T, U, V> edition : editions.values())
+			edition.setParent(parent);
 	}
 
 	@Override
