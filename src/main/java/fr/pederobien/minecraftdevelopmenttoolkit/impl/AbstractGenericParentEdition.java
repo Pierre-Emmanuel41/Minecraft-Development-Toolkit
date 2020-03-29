@@ -34,8 +34,8 @@ public abstract class AbstractGenericParentEdition<T, U, V extends IManagedEditi
 		if (!modifiable)
 			return this;
 		this.available = available;
-		for (Map.Entry<String, IGenericMapEdition<T, U, V>> edition : editions.entrySet())
-			edition.getValue().setAvailable(available);
+		for (IGenericMapEdition<T, U, V> edition : editions.values())
+			edition.setAvailable(available);
 		return this;
 	}
 
@@ -76,9 +76,11 @@ public abstract class AbstractGenericParentEdition<T, U, V extends IManagedEditi
 				String label = args[0];
 				IGenericMapEdition<T, U, V> edition = editions.get(label);
 
+				// If the edition is available then execute its method onTabComplete otherwise return an empty list of String.
 				if (edition != null)
 					return edition.isAvailable() ? edition.onTabComplete(sender, command, alias, extract(args, 1)) : emptyList();
 
+				// If the label correspond to "help" then execute its method onTabComplete.
 				if (label.equals(helper.getLabel()))
 					return helper.onTabComplete(sender, command, alias, extract(args, 1));
 
@@ -97,12 +99,14 @@ public abstract class AbstractGenericParentEdition<T, U, V extends IManagedEditi
 		if (!isAvailable())
 			throw new NotAvailableEditionException(label);
 
+		// If the label correspond to "help" then execute its method help.
 		first = args[0];
 		if (first.equals(helper.getLabel())) {
 			helper.help(sender, extract(args, 1));
 			return true;
 		}
 
+		// If the edition is available then execute its method onCommand.
 		IGenericMapEdition<T, U, V> edition = editions.get(first);
 		if (edition.isAvailable()) {
 			edition.onCommand(sender, command, label, extract(args, 1));
