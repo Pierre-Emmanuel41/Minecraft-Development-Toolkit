@@ -36,7 +36,7 @@ public abstract class AbstractGenericParentEdition<T, U, V extends IManagedEditi
 		this.available = available;
 		for (Map.Entry<String, IGenericMapEdition<T, U, V>> edition : editions.entrySet())
 			edition.getValue().setAvailable(available);
-		return null;
+		return this;
 	}
 
 	@Override
@@ -53,13 +53,13 @@ public abstract class AbstractGenericParentEdition<T, U, V extends IManagedEditi
 	@Override
 	public IGenericParentEdition<T, U, V> addEdition(IGenericMapEdition<T, U, V> elt) {
 		editions.put(elt.getLabel(), elt);
-		return null;
+		return this;
 	}
 
 	@Override
 	public IGenericParentEdition<T, U, V> removeEdition(IGenericMapEdition<T, U, V> elt) {
 		editions.remove(elt.getLabel());
-		return null;
+		return this;
 	}
 
 	@Override
