@@ -180,20 +180,37 @@ public class WorldManager {
 
 	/**
 	 * Gets the {@link Block} in the specified world at the given coordinates.
-	 *
-	 * @param x X-coordinate of the block.
-	 * @param y Y-coordinate of the block.
-	 * @param z Z-coordinate of the block.
+	 * 
+	 * @param world The world in which the research is made.
+	 * @param x     X-coordinate of the block.
+	 * @param y     Y-coordinate of the block.
+	 * @param z     Z-coordinate of the block.
 	 * 
 	 * @return Block at the given coordinates.
 	 */
-	public static Block getBlockAt(String world, int x, int y, int z) {
-		return getWorld(world).getBlockAt(x, y, z);
+	public static Block getBlockAt(World word, int x, int y, int z) {
+		return word.getBlockAt(x, y, z);
 	}
 
 	/**
-	 * Gets the {@link Block} in the surface world at the given coordinates using {@link #getBlockAt(String, int, int, int)} with
-	 * world equals {@link #SURFACE_WORLD_NAME}.
+	 * Gets the {@link Block} at the given coordinates in the world associated to the given world name.
+	 * 
+	 * @param worldName The name of the world.
+	 * @param x         X-coordinate of the block.
+	 * @param y         Y-coordinate of the block.
+	 * @param z         Z-coordinate of the block.
+	 * 
+	 * @see #getBlockAt(World, int, int, int)
+	 * 
+	 * @return Block at the given coordinates.
+	 */
+	public static Block getBlockAt(String worldName, int x, int y, int z) {
+		return getBlockAt(getWorld(worldName), x, y, z);
+	}
+
+	/**
+	 * Gets the {@link Block} in the surface world at the given coordinates using {@link #getBlockAt(World, int, int, int)} with world
+	 * equals {@link #SURFACE_WORLD}.
 	 *
 	 * @param x X-coordinate of the block.
 	 * @param y Y-coordinate of the block.
@@ -202,12 +219,12 @@ public class WorldManager {
 	 * @return Block at the given coordinates.
 	 */
 	public static Block getBlockAtFromSurface(int x, int y, int z) {
-		return getBlockAt(SURFACE_WORLD_NAME, x, y, z);
+		return getBlockAt(SURFACE_WORLD, x, y, z);
 	}
 
 	/**
-	 * Gets the {@link Block} in the nether world at the given coordinates using {@link #getBlockAt(String, int, int, int)} with world
-	 * equals {@link #NETHER_WORLD_NAME}.
+	 * Gets the {@link Block} in the nether world at the given coordinates using {@link #getBlockAt(World, int, int, int)} with world
+	 * equals {@link #NETHER_WORLD}.
 	 *
 	 * @param x X-coordinate of the block.
 	 * @param y Y-coordinate of the block.
@@ -216,12 +233,12 @@ public class WorldManager {
 	 * @return Block at the given coordinates.
 	 */
 	public static Block getBlockAtFromNether(int x, int y, int z) {
-		return getBlockAt(NETHER_WORLD_NAME, x, y, z);
+		return getBlockAt(NETHER_WORLD, x, y, z);
 	}
 
 	/**
-	 * Gets the {@link Block} in the end world at the given coordinates using {@link #getBlockAt(String, int, int, int)} with world
-	 * equals {@link #END_WORLD_NAME}.
+	 * Gets the {@link Block} in the end world at the given coordinates using {@link #getBlockAt(World, int, int, int)} with world
+	 * equals {@link #END_WORLD}.
 	 *
 	 * @param x X-coordinate of the block.
 	 * @param y Y-coordinate of the block.
@@ -230,7 +247,7 @@ public class WorldManager {
 	 * @return Block at the given coordinates.
 	 */
 	public static Block getBlockAtFromEnd(int x, int y, int z) {
-		return getBlockAt(END_WORLD_NAME, x, y, z);
+		return getBlockAt(END_WORLD, x, y, z);
 	}
 
 	/**
