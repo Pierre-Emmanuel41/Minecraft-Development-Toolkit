@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -119,5 +120,19 @@ public class AbstractGenericMapEdition<T, U, V extends IManagedEdition<U>> exten
 	 */
 	protected U get() {
 		return getParent().get();
+	}
+
+	/**
+	 * Check if the element verify the rules coming from the given predicate. If the element verify the rules, then it returns the
+	 * specified list of String. Otherwise, it return an empty list of String.
+	 * 
+	 * @param element      The element to check.
+	 * @param predicate    The predicate that contains the rules.
+	 * @param returnedList The list to return if the element verify the rules.
+	 * 
+	 * @return A List of String.
+	 */
+	protected List<String> check(String element, Predicate<String> predicate, List<String> returnedList) {
+		return predicate.test(element) ? returnedList : emptyList();
 	}
 }
