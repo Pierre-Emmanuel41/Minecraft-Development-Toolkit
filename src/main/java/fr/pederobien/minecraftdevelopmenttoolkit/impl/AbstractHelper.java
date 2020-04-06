@@ -3,7 +3,6 @@ package fr.pederobien.minecraftdevelopmenttoolkit.impl;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.StringJoiner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -16,11 +15,12 @@ import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IGenericMapEdition;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IGenericParentEdition;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IHelper;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IManagedEdition;
+import fr.pederobien.minecraftdevelopmenttoolkit.managers.MessageManager;
 
-public abstract class Helper<T, U, V extends IManagedEdition<U>> extends AbstractGenericEdition<T> implements IHelper<T, U, V> {
+public abstract class AbstractHelper<T, U, V extends IManagedEdition<U>> extends AbstractGenericEdition<T> implements IHelper<T, U, V> {
 	private IGenericParentEdition<T, U, V> parent;
 
-	public Helper(T explanation) {
+	public AbstractHelper(T explanation) {
 		super("help", explanation);
 	}
 
@@ -62,14 +62,24 @@ public abstract class Helper<T, U, V extends IManagedEdition<U>> extends Abstrac
 	}
 
 	/**
-	 * Before sending each explanation, they are concatenated into one string using a {@link StringJoiner} with delimiter "\n".
+	 * Send the specified message to the given player.
 	 * 
-	 * @param player      The player that receive the explanation.
-	 * @param explanation The list of explanations to send.
+	 * @param player  The player that will receive the message.
+	 * @param message The message to send to the player.
 	 * 
-	 * @see #sendMessage(Player, String)
+	 * @see MessageManager#sendMessage(Player, String)
 	 */
-	protected abstract void sendMessage(Player player, List<T> explanations);
+	protected void sendMessage(Player player, String message) {
+		MessageManager.sendMessage(player, message);
+	}
+
+	/**
+	 * Send the explanations of each editions from the given list of generic edition.
+	 * 
+	 * @param player   The player that receive the explanation.
+	 * @param editions The list of editions to send their explanations.
+	 */
+	protected abstract void sendMessage(Player player, List<IGenericEdition<T>> editions);
 
 	private void sendMessage(Player player, IGenericParentEdition<T, U, V> parent) {
 		sendExplanations(player, concat(parent, parent.getChildren()));
@@ -79,11 +89,11 @@ public abstract class Helper<T, U, V extends IManagedEdition<U>> extends Abstrac
 		sendExplanations(player, concat(edition, edition.getChildren()));
 	}
 
-	private Stream<T> concat(IGenericEdition<T> genericEdition, Map<String, IGenericMapEdition<T, U, V>> map) {
-		return Stream.concat(Stream.of(genericEdition.getExplanation()), map.values().stream().filter(e -> e.isAvailable()).map(e -> e.getExplanation()));
+	private Stream<IGenericEdition<T>> concat(IGenericEdition<T> genericEdition, Map<String, IGenericMapEdition<T, U, V>> map) {
+		return Stream.concat(Stream.of(genericEdition), map.values().stream().filter(e -> e.isAvailable()));
 	}
 
-	private void sendExplanations(Player player, Stream<T> explanations) {
+	private void sendExplanations(Player player, Stream<IGenericEdition<T>> explanations) {
 		sendMessage(player, explanations.collect(Collectors.toList()));
 	}
 
