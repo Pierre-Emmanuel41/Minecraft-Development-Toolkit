@@ -1,6 +1,7 @@
 package fr.pederobien.minecraftdevelopmenttoolkit.impl;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -22,6 +23,7 @@ public abstract class AbstractGenericParentEdition<T, U, V extends IManagedEditi
 	public AbstractGenericParentEdition(String label, T explanation, IHelper<T, U, V> helper) {
 		super(label, explanation);
 		setHelper(helper);
+		editions = new HashMap<String, IGenericMapEdition<T, U, V>>();
 	}
 
 	@Override
