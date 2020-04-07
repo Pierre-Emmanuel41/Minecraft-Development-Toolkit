@@ -24,6 +24,8 @@ public abstract class AbstractGenericParentEdition<T, U, V extends IManagedEditi
 		super(label, explanation);
 		setHelper(helper);
 		editions = new HashMap<String, IGenericMapEdition<T, U, V>>();
+		available = true;
+		modifiable = true;
 	}
 
 	@Override
