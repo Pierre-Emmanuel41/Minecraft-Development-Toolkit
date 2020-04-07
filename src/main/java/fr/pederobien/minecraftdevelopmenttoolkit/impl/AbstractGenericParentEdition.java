@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import fr.pederobien.minecraftdevelopmenttoolkit.exceptions.NotAvailableEditionException;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IGenericMapEdition;
@@ -106,7 +107,8 @@ public abstract class AbstractGenericParentEdition<T, U, V extends IManagedEditi
 		// If the label correspond to "help" then execute its method help.
 		first = args[0];
 		if (first.equals(helper.getLabel())) {
-			helper.help(sender, extract(args, 1));
+			if (sender instanceof Player)
+				helper.help(sender, extract(args, 1));
 			return true;
 		}
 
