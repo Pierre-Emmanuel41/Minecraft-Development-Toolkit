@@ -10,6 +10,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import fr.pederobien.minecraftdevelopmenttoolkit.exceptions.ArgumentNotFoundException;
 import fr.pederobien.minecraftdevelopmenttoolkit.exceptions.NotAvailableEditionException;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IGenericMapEdition;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IGenericParentEdition;
@@ -98,6 +99,9 @@ public abstract class AbstractGenericParentEdition<T, U, V extends IManagedEditi
 		}
 	}
 
+	/**
+	 * @throws CommandNotFoundException If the command to execute has not been found
+	 */
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		String first = "";
@@ -114,6 +118,9 @@ public abstract class AbstractGenericParentEdition<T, U, V extends IManagedEditi
 
 		// If the edition is available then execute its method onCommand.
 		IGenericMapEdition<T, U, V> edition = editions.get(first);
+		if (edition == null)
+			throw new ArgumentNotFoundException(label, first, args);
+
 		if (edition.isAvailable()) {
 			edition.onCommand(sender, command, label, extract(args, 1));
 			return true;
