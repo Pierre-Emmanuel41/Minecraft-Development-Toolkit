@@ -9,7 +9,7 @@ import java.util.function.Predicate;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import fr.pederobien.minecraftdevelopmenttoolkit.exceptions.NotAvailableEditionException;
+import fr.pederobien.minecraftdevelopmenttoolkit.exceptions.NotAvailableArgumentException;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IGenericMapEdition;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IManagedEdition;
 
@@ -20,9 +20,9 @@ public class AbstractGenericMapEdition<T, U, V extends IManagedEdition<U>> exten
 
 	public AbstractGenericMapEdition(String label, T explanation) {
 		super(label, explanation);
+		editions = new HashMap<String, IGenericMapEdition<T, U, V>>();
 		available = true;
 		modifiable = true;
-		editions = new HashMap<String, IGenericMapEdition<T, U, V>>();
 	}
 
 	@Override
@@ -95,7 +95,7 @@ public class AbstractGenericMapEdition<T, U, V extends IManagedEdition<U>> exten
 		IGenericMapEdition<T, U, V> edition = editions.get(editionLabel);
 
 		if (!edition.isAvailable())
-			throw new NotAvailableEditionException(editionLabel);
+			throw new NotAvailableArgumentException(command.getLabel(), editionLabel);
 
 		edition.onCommand(sender, command, label, extract(args, 1));
 		return true;

@@ -11,7 +11,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import fr.pederobien.minecraftdevelopmenttoolkit.exceptions.ArgumentNotFoundException;
-import fr.pederobien.minecraftdevelopmenttoolkit.exceptions.NotAvailableEditionException;
+import fr.pederobien.minecraftdevelopmenttoolkit.exceptions.NotAvailableArgumentException;
+import fr.pederobien.minecraftdevelopmenttoolkit.exceptions.NotAvailableCommandException;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IGenericMapEdition;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IGenericParentEdition;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IHelper;
@@ -106,7 +107,7 @@ public abstract class AbstractGenericParentEdition<T, U, V extends IManagedEditi
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		String first = "";
 		if (!isAvailable())
-			throw new NotAvailableEditionException(label);
+			throw new NotAvailableCommandException(command.getLabel());
 
 		// If the label correspond to "help" then execute its method help.
 		first = args[0];
@@ -121,11 +122,10 @@ public abstract class AbstractGenericParentEdition<T, U, V extends IManagedEditi
 		if (edition == null)
 			throw new ArgumentNotFoundException(label, first, args);
 
-		if (edition.isAvailable()) {
-			edition.onCommand(sender, command, label, extract(args, 1));
-			return true;
-		}
-		return false;
+		if (!edition.isAvailable())
+			throw new NotAvailableArgumentException(command.getLabel(), edition.getLabel());
+
+		return edition.onCommand(sender, command, label, args);
 	}
 
 	@Override
