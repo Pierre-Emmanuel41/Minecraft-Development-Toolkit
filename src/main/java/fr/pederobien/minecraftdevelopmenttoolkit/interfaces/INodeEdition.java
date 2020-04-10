@@ -1,5 +1,6 @@
 package fr.pederobien.minecraftdevelopmenttoolkit.interfaces;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,4 +36,13 @@ public interface INodeEdition<T, U extends IGenericEdition<T>, V> extends IGener
 	 * @return An unmodifiable view as map of all children of this node edition.
 	 */
 	Map<String, U> getChildren();
+
+	/**
+	 * Get a list of all descendants matching on the given labelName.
+	 * 
+	 * @param labelName The label to match on.
+	 * 
+	 * @return A list of all descendants.
+	 */
+	List<U> getChildrenByLabelName(String labelName);
 }
