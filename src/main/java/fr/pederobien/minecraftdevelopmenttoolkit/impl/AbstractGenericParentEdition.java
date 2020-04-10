@@ -96,7 +96,7 @@ public abstract class AbstractGenericParentEdition<T, U, V extends IGenericParen
 		if (!edition.isAvailable())
 			throw new NotAvailableArgumentException(command.getLabel(), edition.getLabel());
 
-		return edition.onCommand(sender, command, label, args);
+		return edition.onCommand(sender, command, label, extract(args, 1));
 	}
 
 	@Override
