@@ -6,6 +6,7 @@ public class NotAvailableArgumentException extends EditionException {
 
 	public NotAvailableArgumentException(String label, String argument) {
 		super(label, "The argument \"" + argument + "\" associated to the command \"" + label + "\" is not available.");
+		this.argument = argument;
 	}
 
 	/**
