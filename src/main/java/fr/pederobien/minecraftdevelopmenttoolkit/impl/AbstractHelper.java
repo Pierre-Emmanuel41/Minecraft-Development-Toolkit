@@ -14,7 +14,7 @@ import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IGenericEdition;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IGenericMapEdition;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IGenericParentEdition;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IHelper;
-import fr.pederobien.minecraftdevelopmenttoolkit.managers.MessageManager;
+import fr.pederobien.minecraftmanagers.MessageManager;
 
 public abstract class AbstractHelper<T, U, V extends IGenericParentEdition<T, U, V, W>, W extends IGenericMapEdition<T, U, V, W>> extends AbstractGenericEdition<T>
 		implements IHelper<T, U, V, W> {
