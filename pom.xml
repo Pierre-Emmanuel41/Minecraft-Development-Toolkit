@@ -30,6 +30,11 @@
 			<version>1.13-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>fr.pederobien</groupId>
+			<artifactId>minecraft-managers</artifactId>
+			<version>1.0</version>
+		</dependency>
 	</dependencies>
 	
 	<build>
