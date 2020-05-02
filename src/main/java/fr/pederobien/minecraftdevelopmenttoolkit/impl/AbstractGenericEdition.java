@@ -52,6 +52,23 @@ public abstract class AbstractGenericEdition<T> implements IGenericEdition<T> {
 	}
 
 	/**
+	 * Filter each string from the given stream using condition : <code>str.contains(args[args.length - 1])</code>. This method is
+	 * equivalent to : <code>filter(stream, args[args.length - 1])</code>. In other words, this method filter the given stream using
+	 * the last argument from the array <code>args</code>.
+	 * 
+	 * @param stream A stream that contains string to filter.
+	 * @param args   The array that contains arguments coming from method <code>onTabComplete</code>.
+	 * 
+	 * @return A list of string from the given stream that contains the filter.
+	 * 
+	 * @see #filter(Stream, String)
+	 * @see #onTabComplete(org.bukkit.command.CommandSender, org.bukkit.command.Command, String, String[])
+	 */
+	protected List<String> filter(Stream<String> stream, String... args) {
+		return filter(stream, args[args.length - 1]);
+	}
+
+	/**
 	 * Copies the specified range of the specified array into a new array. The initial index of the range (<tt>from</tt>) must lie
 	 * between zero and <tt>original.length</tt>, inclusive. The value at <tt>original[from]</tt> is placed into the initial element
 	 * of the copy (unless <tt>from == original.length</tt> or <tt>from == to</tt>). Values from subsequent elements in the original
