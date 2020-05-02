@@ -34,10 +34,19 @@ public abstract class AbstractGenericEdition<T> implements IGenericEdition<T> {
 	}
 
 	/**
+	 * @param <U> The type of element in the empty list.
 	 * @return An empty array list.
 	 */
-	protected List<String> emptyList() {
-		return new ArrayList<String>();
+	protected <U> List<U> emptyList() {
+		return new ArrayList<U>();
+	}
+
+	/**
+	 * @param <U> The type of element in the empty stream.
+	 * @return An empty stream.
+	 */
+	protected <U> Stream<U> emptyStream() {
+		return Stream.of();
 	}
 
 	/**
@@ -109,6 +118,36 @@ public abstract class AbstractGenericEdition<T> implements IGenericEdition<T> {
 
 	/**
 	 * Check if the element verify the rules coming from the given predicate. If the element verify the rules, then it returns the
+	 * specified <code>listWhenVerify</code>. Otherwise, it return the specified <code>listWhenNotVerify</code>
+	 * 
+	 * @param element           The element to check.
+	 * @param predicate         The predicate that contains the rules.
+	 * @param listWhenVerify    The list to return if the element verify the rules.
+	 * @param listWhenNotVerify The list to return if the element does not verify the rules.
+	 * 
+	 * @return A List of String.
+	 */
+	protected List<String> check(String element, Predicate<String> predicate, List<String> listWhenVerify, List<String> listWhenNotVerify) {
+		return predicate.test(element) ? listWhenVerify : listWhenNotVerify;
+	}
+
+	/**
+	 * Check if the element verify the rules coming from the given predicate. If the element verify the rules, then it returns the
+	 * specified <code>listWhenVerify</code>. Otherwise, it return the specified <code>listWhenNotVerify</code>
+	 * 
+	 * @param element             The element to check.
+	 * @param predicate           The predicate that contains the rules.
+	 * @param streamWhenVerify    The stream to return if the element verify the rules.
+	 * @param streamWhenNotVerify The stream to return if the element does not verify the rules.
+	 * 
+	 * @return A List of String.
+	 */
+	protected Stream<String> check(String element, Predicate<String> predicate, Stream<String> streamWhenVerify, Stream<String> streamWhenNotVerify) {
+		return predicate.test(element) ? streamWhenVerify : streamWhenNotVerify;
+	}
+
+	/**
+	 * Check if the element verify the rules coming from the given predicate. If the element verify the rules, then it returns the
 	 * specified list of String. Otherwise, it return an empty list of String.
 	 * 
 	 * @param element      The element to check.
@@ -118,7 +157,7 @@ public abstract class AbstractGenericEdition<T> implements IGenericEdition<T> {
 	 * @return A List of String.
 	 */
 	protected List<String> check(String element, Predicate<String> predicate, List<String> returnedList) {
-		return predicate.test(element) ? returnedList : emptyList();
+		return check(element, predicate, returnedList, emptyList());
 	}
 
 	/**
@@ -132,6 +171,6 @@ public abstract class AbstractGenericEdition<T> implements IGenericEdition<T> {
 	 * @return A stream of String.
 	 */
 	protected Stream<String> check(String element, Predicate<String> predicate, Stream<String> returnedStream) {
-		return predicate.test(element) ? returnedStream : Stream.of();
+		return check(element, predicate, returnedStream, emptyStream());
 	}
 }
