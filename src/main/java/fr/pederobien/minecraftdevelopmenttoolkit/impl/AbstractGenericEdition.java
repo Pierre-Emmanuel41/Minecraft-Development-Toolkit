@@ -3,6 +3,7 @@ package fr.pederobien.minecraftdevelopmenttoolkit.impl;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -104,5 +105,33 @@ public abstract class AbstractGenericEdition<T> implements IGenericEdition<T> {
 	 */
 	protected String[] extract(String[] original, int from) {
 		return extract(original, from, original.length);
+	}
+
+	/**
+	 * Check if the element verify the rules coming from the given predicate. If the element verify the rules, then it returns the
+	 * specified list of String. Otherwise, it return an empty list of String.
+	 * 
+	 * @param element      The element to check.
+	 * @param predicate    The predicate that contains the rules.
+	 * @param returnedList The list to return if the element verify the rules.
+	 * 
+	 * @return A List of String.
+	 */
+	protected List<String> check(String element, Predicate<String> predicate, List<String> returnedList) {
+		return predicate.test(element) ? returnedList : emptyList();
+	}
+
+	/**
+	 * Check if the element verify the rules coming from the given predicate. If the element verify the rules, then it returns the
+	 * specified stream of String. Otherwise, it return an empty stream of String.
+	 * 
+	 * @param element        The element to check.
+	 * @param predicate      The predicate that contains the rules.
+	 * @param returnedStream The stream to return if the element verify the rules.
+	 * 
+	 * @return A stream of String.
+	 */
+	protected Stream<String> check(String element, Predicate<String> predicate, Stream<String> returnedStream) {
+		return predicate.test(element) ? returnedStream : Stream.of();
 	}
 }
