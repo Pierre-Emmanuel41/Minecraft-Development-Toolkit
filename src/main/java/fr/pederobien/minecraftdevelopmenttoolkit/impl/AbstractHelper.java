@@ -90,7 +90,7 @@ public abstract class AbstractHelper<T, U, V extends IGenericParentEdition<T, U,
 	}
 
 	private Stream<IGenericEdition<T>> concat(IGenericEdition<T> genericEdition, Map<String, W> map) {
-		return Stream.concat(Stream.of(genericEdition), map.values().stream().filter(e -> e.isAvailable()));
+		return Stream.concat(Stream.of(genericEdition), map.values().stream().filter(e -> e.isAvailable()).sorted());
 	}
 
 	private void sendExplanations(Player player, Stream<IGenericEdition<T>> explanations) {
