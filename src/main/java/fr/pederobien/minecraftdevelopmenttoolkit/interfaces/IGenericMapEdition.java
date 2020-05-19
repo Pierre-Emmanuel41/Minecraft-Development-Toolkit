@@ -17,7 +17,7 @@ import org.bukkit.command.CommandExecutor;
  * @see INodeEdition
  * @see CommandExecutor
  */
-public interface IGenericMapEdition<T, U, V extends IManagedEdition<U>, W extends IGenericMapEdition<T, U, V, W>>
+public interface IGenericMapEdition<T, U, V extends IManagedEdition<U> & INodeEdition<T, W, V>, W extends IGenericMapEdition<T, U, V, W>>
 		extends IAvailableEdition<W>, IModifiableEdition<W>, INodeEdition<T, W, W>, CommandExecutor {
 
 	/**

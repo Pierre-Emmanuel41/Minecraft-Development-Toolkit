@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import fr.pederobien.dictionary.interfaces.IDictionaryManager;
 import fr.pederobien.minecraftdevelopmenttoolkit.impl.AbstractGenericMapEdition;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IManagedEdition;
+import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.INodeEdition;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.messagecode.IMessageCodeMapEdition;
 import fr.pederobien.minecraftdictionary.impl.MinecraftMessageEvent;
 import fr.pederobien.minecraftdictionary.interfaces.IMinecraftMessageCode;
@@ -14,7 +15,7 @@ import fr.pederobien.minecraftdictionary.interfaces.IMinecraftMessageEvent;
 import fr.pederobien.minecraftdictionary.interfaces.IMinecraftNotificationCenter;
 import fr.pederobien.minecraftmanagers.WorldManager;
 
-public abstract class AbstractMessageCodeMapEdition<U, V extends IManagedEdition<U>, W extends IMessageCodeMapEdition<U, V, W>>
+public abstract class AbstractMessageCodeMapEdition<U, V extends IManagedEdition<U> & INodeEdition<IMinecraftMessageCode, W, V>, W extends IMessageCodeMapEdition<U, V, W>>
 		extends AbstractGenericMapEdition<IMinecraftMessageCode, U, V, W> implements IMessageCodeMapEdition<U, V, W> {
 
 	public AbstractMessageCodeMapEdition(String label, IMinecraftMessageCode explanation) {
