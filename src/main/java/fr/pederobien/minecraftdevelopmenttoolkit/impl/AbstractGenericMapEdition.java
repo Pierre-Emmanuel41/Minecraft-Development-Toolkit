@@ -18,6 +18,7 @@ import fr.pederobien.minecraftdevelopmenttoolkit.exceptions.NotAvailableArgument
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IGenericMapEdition;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IManagedEdition;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.INodeEdition;
+import fr.pederobien.persistence.interfaces.IUnmodifiableNominable;
 
 public abstract class AbstractGenericMapEdition<T, U, V extends IManagedEdition<U> & INodeEdition<T, W, V>, W extends IGenericMapEdition<T, U, V, W>>
 		extends AbstractGenericEdition<T> implements IGenericMapEdition<T, U, V, W> {
@@ -288,7 +289,7 @@ public abstract class AbstractGenericMapEdition<T, U, V extends IManagedEdition<
 	}
 
 	/**
-	 * Concatenate each argument present into the given array like : elt1 + " " + elt2 + " " + elt3 +...
+	 * Concatenate each argument present into the given array like : elt1 + ", " + elt2 + ", " + elt3 +...
 	 * 
 	 * @param args The array that contains arguments.
 	 * 
@@ -338,6 +339,30 @@ public abstract class AbstractGenericMapEdition<T, U, V extends IManagedEdition<
 	 */
 	protected String concat(List<String> strings) {
 		return concat(strings, ", ");
+	}
+
+	/**
+	 * Concatenate the name of each element present in the given list <code>names</code>.
+	 * 
+	 * @param names A list that contains elements to concatenate.
+	 * 
+	 * @return A concatenation of each name using delimiter ", ".
+	 * 
+	 * @see #concat(List, CharSequence)
+	 */
+	protected <N extends IUnmodifiableNominable> String concatNames(List<N> names) {
+		return concat(names.stream().map(e -> e.getName()).collect(Collectors.toList()));
+	}
+
+	/**
+	 * Concatenate the name of each element present in the given list <code>names</code> using the given delimiter.
+	 * 
+	 * @param names     The list that contains element to concatenate.
+	 * @param delimiter the sequence of characters to be used between each element added to the concatenation value.
+	 * @return The concatenation of each string.
+	 */
+	protected <N extends IUnmodifiableNominable> String concatNames(List<N> names, CharSequence delimiter) {
+		return concat(names.stream().map(e -> e.getName()).collect(Collectors.toList()), delimiter);
 	}
 
 	/**
