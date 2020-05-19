@@ -25,7 +25,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>minecraft-game-plateform-v${project.version}</finalName>
+		<finalName>minecraft-development-toolkit-v${project.version}</finalName>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<plugins>
 			<plugin>
