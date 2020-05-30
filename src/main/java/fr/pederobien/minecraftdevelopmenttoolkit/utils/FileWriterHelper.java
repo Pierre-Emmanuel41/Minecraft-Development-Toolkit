@@ -17,7 +17,6 @@ public class FileWriterHelper {
 	 * @return True if the string was successfully written into the file, false otherwise.
 	 */
 	public static boolean write(Path path, String toWrite) {
-		System.out.println(path);
 		BufferedWriter writer = null;
 		try {
 			createNewFile(path);
