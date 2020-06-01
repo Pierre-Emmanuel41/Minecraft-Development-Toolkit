@@ -11,19 +11,20 @@ public class DisplayHelper {
 	private static DecimalFormat decimalFormat = new DecimalFormat();
 
 	/**
-	 * Method used to display the given time to minecraft player. If hours or minutes or seconds equals to 0, it is not displayed.
+	 * Method used to display the given time to minecraft player.
 	 * 
 	 * @param time The time to display.
+	 * @param full True if the method show hours, minutes or second even if it equals 0.
 	 * 
 	 * @return time.getHour() + "h " + time.getMinute() + "m " + time.getSecond() + "s";
 	 */
-	public static String toString(LocalTime time) {
+	public static String toString(LocalTime time, boolean full) {
 		StringJoiner joiner = new StringJoiner(" ");
-		if (time.getHour() != 0)
+		if (full || time.getHour() != 0)
 			joiner.add(time.getHour() + "h");
-		if (time.getMinute() != 0)
+		if (full || time.getMinute() != 0)
 			joiner.add(time.getMinute() + "m");
-		if (time.getSecond() != 0)
+		if (full || time.getSecond() != 0)
 			joiner.add(time.getSecond() + "s");
 		return joiner.toString();
 	}
