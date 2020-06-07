@@ -4,7 +4,6 @@ import org.bukkit.GameRule;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import fr.pederobien.dictionary.interfaces.IDictionaryManager;
 import fr.pederobien.minecraftdevelopmenttoolkit.impl.AbstractGenericMapEdition;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IManagedEdition;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.INodeEdition;
@@ -84,6 +83,6 @@ public abstract class AbstractMessageCodeMapEdition<U, V extends IManagedEdition
 	}
 
 	private String getMessage(Player player, IMinecraftMessageCode code, Object... args) {
-		return ((IDictionaryManager) getNotificationCenter().getDictionaryContext()).getMessage(messageEvent(player, code, args));
+		return getNotificationCenter().getDictionaryContext().getMessage(messageEvent(player, code, args));
 	}
 }
