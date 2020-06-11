@@ -10,6 +10,11 @@ import fr.pederobien.minecraftscoreboards.impl.AbstractSimpleEntry;
 public abstract class ToolkitEntry extends AbstractSimpleEntry {
 	private String before, after;
 
+	/**
+	 * Constructs an entry that propose methods to display player language sensitive messages.
+	 * 
+	 * @param score The line number of this entry.
+	 */
 	protected ToolkitEntry(int score) {
 		super(score);
 	}
@@ -25,7 +30,7 @@ public abstract class ToolkitEntry extends AbstractSimpleEntry {
 	 * {@link #getBeforeAsCode(Player)}.
 	 */
 	@Override
-	protected String getBefore(Player player) {
+	public String getBefore(Player player) {
 		IMinecraftMessageCode code = getBeforeAsCode(player);
 		if (code == null)
 			return "";
@@ -39,7 +44,7 @@ public abstract class ToolkitEntry extends AbstractSimpleEntry {
 	 * {@link #getAfterAsCode(Player)}.
 	 */
 	@Override
-	protected String getAfter(Player player) {
+	public String getAfter(Player player) {
 		IMinecraftMessageCode code = getAfterAsCode(player);
 		if (code == null)
 			return "";
