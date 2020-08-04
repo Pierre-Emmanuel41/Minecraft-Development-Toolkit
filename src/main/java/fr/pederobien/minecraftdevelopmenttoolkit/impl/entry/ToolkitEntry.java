@@ -5,9 +5,9 @@ import org.bukkit.entity.Player;
 import fr.pederobien.minecraftdictionary.impl.MinecraftMessageEvent;
 import fr.pederobien.minecraftdictionary.interfaces.IMinecraftMessageCode;
 import fr.pederobien.minecraftdictionary.interfaces.IMinecraftNotificationCenter;
-import fr.pederobien.minecraftscoreboards.impl.AbstractSimpleEntry;
+import fr.pederobien.minecraftscoreboards.impl.AbstractEntry;
 
-public abstract class ToolkitEntry extends AbstractSimpleEntry {
+public abstract class ToolkitEntry extends AbstractEntry {
 	private String before, after;
 
 	/**
@@ -30,12 +30,12 @@ public abstract class ToolkitEntry extends AbstractSimpleEntry {
 	 * {@link #getBeforeAsCode(Player)}.
 	 */
 	@Override
-	public String getBefore(Player player) {
-		IMinecraftMessageCode code = getBeforeAsCode(player);
+	public String getBefore() {
+		IMinecraftMessageCode code = getBeforeAsCode(getPlayer());
 		if (code == null)
 			return "";
 		if (before == null || !isBeforeConstant())
-			before = getNotificationCenter().getMessage(new MinecraftMessageEvent(player, code));
+			before = getNotificationCenter().getMessage(new MinecraftMessageEvent(getPlayer(), code));
 		return before;
 	}
 
@@ -44,12 +44,12 @@ public abstract class ToolkitEntry extends AbstractSimpleEntry {
 	 * {@link #getAfterAsCode(Player)}.
 	 */
 	@Override
-	public String getAfter(Player player) {
-		IMinecraftMessageCode code = getAfterAsCode(player);
+	public String getAfter() {
+		IMinecraftMessageCode code = getAfterAsCode(getPlayer());
 		if (code == null)
 			return "";
 		if (after == null || !isAfterConstant())
-			after = getNotificationCenter().getMessage(new MinecraftMessageEvent(player, code));
+			after = getNotificationCenter().getMessage(new MinecraftMessageEvent(getPlayer(), code));
 		return after;
 	}
 
