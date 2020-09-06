@@ -1,10 +1,7 @@
 package fr.pederobien.minecraftdevelopmenttoolkit.impl;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -20,29 +17,14 @@ import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IGenericParentEditio
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IHelper;
 
 public abstract class AbstractGenericParentEdition<T, U, V extends IGenericParentEdition<T, U, V, W>, W extends IGenericMapEdition<T, U, V, W>>
-		extends AbstractGenericEdition<T> implements IGenericParentEdition<T, U, V, W> {
+		extends AbstractCommonEdition<T, W, V> implements IGenericParentEdition<T, U, V, W> {
 	private IHelper<T, U, V, W> helper;
-	private boolean available, modifiable;
-	private Map<String, W> editions;
 	private List<W> descendants;
 
 	public AbstractGenericParentEdition(String label, T explanation, IHelper<T, U, V, W> helper) {
 		super(label, explanation);
 		setHelper(helper);
-		available = true;
-		modifiable = true;
-		editions = new HashMap<String, W>();
 		descendants = new ArrayList<W>();
-	}
-
-	@Override
-	public boolean isAvailable() {
-		return available;
-	}
-
-	@Override
-	public boolean isModifiable() {
-		return modifiable;
 	}
 
 	@Override
@@ -107,35 +89,25 @@ public abstract class AbstractGenericParentEdition<T, U, V extends IGenericParen
 	}
 
 	@Override
-	public Map<String, W> getChildren() {
-		return Collections.unmodifiableMap(editions);
-	}
-
-	@Override
 	public List<W> getChildrenByLabelName(String labelName) {
 		return descendants.stream().filter(edition -> edition.getLabel().equals(labelName)).collect(Collectors.toList());
 	}
 
 	protected void internalSetAvailable(boolean available) {
-		if (!modifiable)
-			return;
-		this.available = available;
-		for (W edition : getChildren().values())
-			edition.setAvailable(available);
-	}
-
-	protected void internalSetModifiable(boolean modifiable) {
-		this.modifiable = modifiable;
+		super.internalSetAvailable(available);
+		if (isModifiable())
+			for (W edition : getChildren().values())
+				edition.setAvailable(available);
 	}
 
 	protected void internalAdd(W elt) {
+		super.internalAdd(elt);
 		internalAddToDescendants(elt);
-		editions.put(elt.getLabel(), elt);
 	}
 
 	protected void internalRemove(W elt) {
+		super.internalRemove(elt);
 		internalRemoveFromDescendants(elt);
-		editions.remove(elt.getLabel());
 	}
 
 	private void internalAddToDescendants(W elt) {
