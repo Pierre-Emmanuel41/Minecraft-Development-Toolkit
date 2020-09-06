@@ -12,7 +12,7 @@ import org.bukkit.command.CommandExecutor;
  * @param <W> The type of element to add to this node edition.
  */
 public interface IGenericParentEdition<T, U, V extends IGenericParentEdition<T, U, V, W>, W extends IGenericMapEdition<T, U, V, W>>
-		extends IManagedEdition<U>, IAvailableEdition<V>, IModifiableEdition<V>, INodeEdition<T, W, V>, CommandExecutor {
+		extends IManagedEdition<U>, ICommonEdition<T, W, V>, CommandExecutor {
 
 	IGenericParentEdition<T, U, V, W> setHelper(IHelper<T, U, V, W> helper);
 }
