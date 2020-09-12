@@ -49,7 +49,7 @@ public interface IMessageSenderEdition {
 	 * @see #sendMessageToSender(CommandSender, IMinecraftMessageCode, Object...)
 	 */
 	public default void sendMessageToSenderNotSynchonized(CommandSender sender, IMinecraftMessageCode code, Object... args) {
-		if (sender instanceof Player && WorldManager.OVERWORLD.getGameRuleValue(GameRule.SEND_COMMAND_FEEDBACK))
+		if (sender instanceof Player)
 			getNotificationCenter().sendMessage(messageEvent((Player) sender, code, args));
 	}
 
