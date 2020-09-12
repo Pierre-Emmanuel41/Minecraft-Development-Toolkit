@@ -1,58 +1,15 @@
 package fr.pederobien.minecraftdevelopmenttoolkit.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-
-import fr.pederobien.minecraftdevelopmenttoolkit.exceptions.NotAvailableArgumentException;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IGenericMapEdition;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IManagedEdition;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.INodeEdition;
 
 public abstract class AbstractGenericMapEdition<T, U, V extends IManagedEdition<U> & INodeEdition<T, W, V>, W extends IGenericMapEdition<T, U, V, W>>
-		extends AbstractCommonEdition<T, W, W> implements IGenericMapEdition<T, U, V, W> {
+		extends AbstractGenericCommonMapEdition<T, W> implements IGenericMapEdition<T, U, V, W> {
 	private V parent;
-	private List<W> descendants;
 
 	public AbstractGenericMapEdition(String label, T explanation) {
 		super(label, explanation);
-		descendants = new ArrayList<W>();
-	}
-
-	@Override
-	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-		try {
-			W edition = getChildren().get(args[0]);
-
-			// Edition not recognised, display all available children editions.
-			if (edition == null)
-				return filter(getChildren().values().stream().filter(e -> e.isAvailable()).map(e -> e.getLabel()), args[0]);
-
-			// Return an empty list if there are no edition corresponding to the given args[0] parameter.
-			if (!edition.isAvailable())
-				return emptyList();
-
-			return edition.onTabComplete(sender, command, alias, extract(args, 1));
-		} catch (IndexOutOfBoundsException e) {
-
-			// When args is empty -> args[0] throw an IndexOutOfBoundsException
-			return emptyList();
-		}
-	}
-
-	@Override
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		String editionLabel = args[0];
-		W edition = getChildren().get(editionLabel);
-
-		if (!edition.isAvailable())
-			throw new NotAvailableArgumentException(command.getLabel(), editionLabel);
-
-		edition.onCommand(sender, command, label, extract(args, 1));
-		return true;
 	}
 
 	@Override
@@ -65,28 +22,6 @@ public abstract class AbstractGenericMapEdition<T, U, V extends IManagedEdition<
 	@Override
 	public V getParent() {
 		return parent;
-	}
-
-	@Override
-	public List<W> getChildrenByLabelName(String labelName) {
-		return descendants.stream().filter(edition -> edition.getLabel().equals(labelName)).collect(Collectors.toList());
-	}
-
-	protected void internalSetAvailable(boolean available) {
-		super.internalSetAvailable(available);
-		if (isModifiable())
-			for (W edition : getChildren().values())
-				edition.setAvailable(available);
-	}
-
-	protected void internalAdd(W elt) {
-		super.internalAdd(elt);
-		internalAddToDescendants(elt);
-	}
-
-	protected void internalRemove(W elt) {
-		super.internalRemove(elt);
-		internalRemoveFromDescendants(elt);
 	}
 
 	/**
@@ -144,17 +79,5 @@ public abstract class AbstractGenericMapEdition<T, U, V extends IManagedEdition<
 	protected void setNotAvailableEditions(String... labels) {
 		for (String label : labels)
 			setNotAvailableEdition(label);
-	}
-
-	private void internalAddToDescendants(W elt) {
-		for (W element : elt.getChildren().values())
-			internalAddToDescendants(element);
-		descendants.add(elt);
-	}
-
-	private void internalRemoveFromDescendants(W elt) {
-		for (W element : elt.getChildren().values())
-			internalRemoveFromDescendants(element);
-		descendants.remove(elt);
 	}
 }
