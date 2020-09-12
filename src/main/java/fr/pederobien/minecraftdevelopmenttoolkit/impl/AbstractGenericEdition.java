@@ -2,7 +2,9 @@ package fr.pederobien.minecraftdevelopmenttoolkit.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.RandomAccess;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -172,5 +174,24 @@ public abstract class AbstractGenericEdition<T> implements IGenericEdition<T> {
 	 */
 	protected Stream<String> check(String element, Predicate<String> predicate, Stream<String> returnedStream) {
 		return check(element, predicate, returnedStream, emptyStream());
+	}
+
+	/**
+	 * Returns a fixed-size list backed by the specified array. (Changes to the returned list "write through" to the array.) This
+	 * method acts as bridge between array-based and collection-based APIs, in combination with {@link Collection#toArray}. The
+	 * returned list is serializable and implements {@link RandomAccess}.
+	 *
+	 * <p>
+	 * This method also provides a convenient way to create a fixed-size list initialized to contain several elements:
+	 * 
+	 * <pre>
+	 * List&lt;String&gt; stooges = Arrays.asList("Larry", "Moe", "Curly");
+	 * </pre>
+	 *
+	 * @param strings the array by which the list will be backed.
+	 * @return A list view of the specified array.
+	 */
+	protected List<String> asList(String... strings) {
+		return Arrays.asList(strings);
 	}
 }
