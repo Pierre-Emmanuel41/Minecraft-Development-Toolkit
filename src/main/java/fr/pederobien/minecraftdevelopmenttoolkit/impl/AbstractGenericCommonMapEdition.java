@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
+import fr.pederobien.minecraftdevelopmenttoolkit.exceptions.ArgumentNotFoundException;
 import fr.pederobien.minecraftdevelopmenttoolkit.exceptions.NotAvailableArgumentException;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IGenericCommonMapEdition;
 
@@ -48,6 +49,9 @@ public abstract class AbstractGenericCommonMapEdition<T, U extends IGenericCommo
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		String editionLabel = args[0];
 		U edition = getChildren().get(editionLabel);
+
+		if (edition == null)
+			throw new ArgumentNotFoundException(label, editionLabel, args);
 
 		if (!edition.isAvailable())
 			throw new NotAvailableArgumentException(command.getLabel(), editionLabel);
