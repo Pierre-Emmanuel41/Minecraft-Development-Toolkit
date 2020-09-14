@@ -66,7 +66,7 @@ public abstract class AbstractGenericMapEdition<T, U, V extends IManagedEdition<
 	 * @see #setAvailable(boolean)
 	 */
 	protected void setNotAvailableEdition(String label) {
-		getParent().getChildrenByLabelName(label).forEach(descendant -> descendant.setModifiable(true).setAvailable(true).setModifiable(false));
+		getParent().getChildrenByLabelName(label).forEach(descendant -> descendant.setAvailable(false));
 	}
 
 	/**
