@@ -10,7 +10,7 @@ import fr.pederobien.minecraftdictionary.interfaces.IMinecraftMessageEvent;
 import fr.pederobien.minecraftdictionary.interfaces.IMinecraftNotificationCenter;
 import fr.pederobien.minecraftmanagers.WorldManager;
 
-public interface IMessageSenderEdition {
+public interface ICodeSender {
 
 	/**
 	 * @return The notification center to send message to player(s) that are currently logged into the server.
