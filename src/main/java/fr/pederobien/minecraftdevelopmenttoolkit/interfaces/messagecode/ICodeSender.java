@@ -36,7 +36,7 @@ public interface ICodeSender {
 	public default void sendSynchro(CommandSender sender, IMinecraftMessageCode code, DisplayOption displayOption, boolean isItalic, boolean isBold, EColor color,
 			Object... args) {
 		if (sender instanceof Player && WorldManager.OVERWORLD.getGameRuleValue(GameRule.SEND_COMMAND_FEEDBACK))
-			getNotificationCenter().sendMessage(event((Player) sender, code, displayOption, isItalic, isBold, color, args));
+			send(event((Player) sender, code, displayOption, isItalic, isBold, color, args));
 	}
 
 	/**
@@ -52,7 +52,7 @@ public interface ICodeSender {
 	 */
 	public default void sendSynchro(CommandSender sender, IMinecraftMessageCode code, DisplayOption displayOption, EColor color, Object... args) {
 		if (sender instanceof Player && WorldManager.OVERWORLD.getGameRuleValue(GameRule.SEND_COMMAND_FEEDBACK))
-			getNotificationCenter().sendMessage(event((Player) sender, code, displayOption, color, args));
+			send(event((Player) sender, code, displayOption, color, args));
 	}
 
 	/**
@@ -67,7 +67,7 @@ public interface ICodeSender {
 	 */
 	public default void sendSynchro(CommandSender sender, IMinecraftMessageCode code, DisplayOption displayOption, Object... args) {
 		if (sender instanceof Player && WorldManager.OVERWORLD.getGameRuleValue(GameRule.SEND_COMMAND_FEEDBACK))
-			getNotificationCenter().sendMessage(event((Player) sender, code, displayOption, args));
+			send(event((Player) sender, code, displayOption, args));
 	}
 
 	/**
@@ -82,7 +82,7 @@ public interface ICodeSender {
 	 */
 	public default void sendSynchro(CommandSender sender, IMinecraftMessageCode code, EColor color, Object... args) {
 		if (sender instanceof Player && WorldManager.OVERWORLD.getGameRuleValue(GameRule.SEND_COMMAND_FEEDBACK))
-			getNotificationCenter().sendMessage(event((Player) sender, code, color, args));
+			send(event((Player) sender, code, color, args));
 	}
 
 	/**
@@ -96,7 +96,7 @@ public interface ICodeSender {
 	 */
 	public default void sendSynchro(CommandSender sender, IMinecraftMessageCode code, Object... args) {
 		if (sender instanceof Player && WorldManager.OVERWORLD.getGameRuleValue(GameRule.SEND_COMMAND_FEEDBACK))
-			getNotificationCenter().sendMessage(event((Player) sender, code, args));
+			send(event((Player) sender, code, args));
 	}
 
 	/**
@@ -113,7 +113,7 @@ public interface ICodeSender {
 	 */
 	public default void sendSynchro(IMinecraftMessageCode code, DisplayOption displayOption, boolean isItalic, boolean isBold, EColor color, Object... args) {
 		if (WorldManager.OVERWORLD.getGameRuleValue(GameRule.SEND_COMMAND_FEEDBACK))
-			getNotificationCenter().sendMessage(event(code, displayOption, isItalic, isBold, color, args));
+			send(event(code, displayOption, isItalic, isBold, color, args));
 	}
 
 	/**
@@ -128,7 +128,7 @@ public interface ICodeSender {
 	 */
 	public default void sendSynchro(IMinecraftMessageCode code, DisplayOption displayOption, EColor color, Object... args) {
 		if (WorldManager.OVERWORLD.getGameRuleValue(GameRule.SEND_COMMAND_FEEDBACK))
-			getNotificationCenter().sendMessage(event(code, displayOption, color, args));
+			send(event(code, displayOption, color, args));
 	}
 
 	/**
@@ -142,7 +142,7 @@ public interface ICodeSender {
 	 */
 	public default void sendSynchro(IMinecraftMessageCode code, DisplayOption displayOption, Object... args) {
 		if (WorldManager.OVERWORLD.getGameRuleValue(GameRule.SEND_COMMAND_FEEDBACK))
-			getNotificationCenter().sendMessage(event(code, displayOption, args));
+			send(event(code, displayOption, args));
 	}
 
 	/**
@@ -156,7 +156,7 @@ public interface ICodeSender {
 	 */
 	public default void sendSynchro(IMinecraftMessageCode code, EColor color, Object... args) {
 		if (WorldManager.OVERWORLD.getGameRuleValue(GameRule.SEND_COMMAND_FEEDBACK))
-			getNotificationCenter().sendMessage(event(code, color, args));
+			send(event(code, color, args));
 	}
 
 	/**
@@ -169,7 +169,7 @@ public interface ICodeSender {
 	 */
 	public default void sendSynchro(IMinecraftMessageCode code, Object... args) {
 		if (WorldManager.OVERWORLD.getGameRuleValue(GameRule.SEND_COMMAND_FEEDBACK))
-			getNotificationCenter().sendMessage(event(code, args));
+			send(event(code, args));
 	}
 
 	/**
@@ -187,7 +187,7 @@ public interface ICodeSender {
 	public default void sendNotSynchro(CommandSender sender, IMinecraftMessageCode code, DisplayOption displayOption, boolean isItalic, boolean isBold, EColor color,
 			Object... args) {
 		if (sender instanceof Player)
-			getNotificationCenter().sendMessage(event((Player) sender, code, displayOption, isItalic, isBold, color, args));
+			send(event((Player) sender, code, displayOption, isItalic, isBold, color, args));
 	}
 
 	/**
@@ -202,7 +202,7 @@ public interface ICodeSender {
 	 */
 	public default void sendNotSynchro(CommandSender sender, IMinecraftMessageCode code, DisplayOption displayOption, EColor color, Object... args) {
 		if (sender instanceof Player)
-			getNotificationCenter().sendMessage(event((Player) sender, code, displayOption, color, args));
+			send(event((Player) sender, code, displayOption, color, args));
 	}
 
 	/**
@@ -216,7 +216,7 @@ public interface ICodeSender {
 	 */
 	public default void sendNotSynchro(CommandSender sender, IMinecraftMessageCode code, DisplayOption displayOption, Object... args) {
 		if (sender instanceof Player)
-			getNotificationCenter().sendMessage(event((Player) sender, code, displayOption, args));
+			send(event((Player) sender, code, displayOption, args));
 	}
 
 	/**
@@ -230,7 +230,7 @@ public interface ICodeSender {
 	 */
 	public default void sendNotSynchro(CommandSender sender, IMinecraftMessageCode code, EColor color, Object... args) {
 		if (sender instanceof Player)
-			getNotificationCenter().sendMessage(event((Player) sender, code, color, args));
+			send(event((Player) sender, code, color, args));
 	}
 
 	/**
@@ -243,7 +243,7 @@ public interface ICodeSender {
 	 */
 	public default void sendNotSynchro(CommandSender sender, IMinecraftMessageCode code, Object... args) {
 		if (sender instanceof Player)
-			getNotificationCenter().sendMessage(event((Player) sender, code, args));
+			send(event((Player) sender, code, args));
 	}
 
 	/**
@@ -259,7 +259,7 @@ public interface ICodeSender {
 	 * @param args          Some arguments (optional) used for dynamic messages.
 	 */
 	public default void sendNotSynchro(IMinecraftMessageCode code, DisplayOption displayOption, boolean isItalic, boolean isBold, EColor color, Object... args) {
-		getNotificationCenter().sendMessage(event(code, displayOption, isItalic, isBold, color, args));
+		send(event(code, displayOption, isItalic, isBold, color, args));
 	}
 
 	/**
@@ -273,7 +273,7 @@ public interface ICodeSender {
 	 * @param args          Some arguments (optional) used for dynamic messages.
 	 */
 	public default void sendNotSynchro(IMinecraftMessageCode code, DisplayOption displayOption, EColor color, Object... args) {
-		getNotificationCenter().sendMessage(event(code, displayOption, color, args));
+		send(event(code, displayOption, color, args));
 	}
 
 	/**
@@ -286,7 +286,7 @@ public interface ICodeSender {
 	 * @param args          Some arguments (optional) used for dynamic messages.
 	 */
 	public default void sendNotSynchro(IMinecraftMessageCode code, DisplayOption displayOption, Object... args) {
-		getNotificationCenter().sendMessage(event(code, displayOption, args));
+		send(event(code, displayOption, args));
 	}
 
 	/**
@@ -299,7 +299,7 @@ public interface ICodeSender {
 	 * @param args  Some arguments (optional) used for dynamic messages.
 	 */
 	public default void sendNotSynchro(IMinecraftMessageCode code, EColor color, Object... args) {
-		getNotificationCenter().sendMessage(event(code, color, args));
+		send(event(code, color, args));
 	}
 
 	/**
@@ -311,7 +311,7 @@ public interface ICodeSender {
 	 * @param args Some arguments (optional) used for dynamic messages.
 	 */
 	public default void sendNotSynchro(IMinecraftMessageCode code, Object... args) {
-		getNotificationCenter().sendMessage(event(code, args));
+		send(event(code, args));
 	}
 
 	/**
@@ -472,5 +472,14 @@ public interface ICodeSender {
 	 */
 	public default IMinecraftMessageEvent event(IMinecraftMessageCode code, Object... args) {
 		return new MinecraftMessageEvent(code, args);
+	}
+
+	/**
+	 * Send a message based on the given event.
+	 * 
+	 * @param event The event that contains the message to send and its modifiers (italic, bold, color).
+	 */
+	public default void send(IMinecraftMessageEvent event) {
+		getNotificationCenter().sendMessage(event);
 	}
 }
