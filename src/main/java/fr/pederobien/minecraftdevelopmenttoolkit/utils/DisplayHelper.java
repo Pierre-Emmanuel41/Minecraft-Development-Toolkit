@@ -43,17 +43,35 @@ public class DisplayHelper {
 	/**
 	 * Method used to display the given location to minecraft player.
 	 * 
+	 * @param location  The location to display.
+	 * @param full      If should display pitch an yaw.
+	 * @param castToInt True if locaction.getX(), location.getY() and location.getZ() should be cast to int instead of double
+	 * 
+	 * @return "X=" + location.getX() + " Y=" + location.getY() + " Z=" + location.getZ() + " Pitch=" + location.getPitch() + " Yaw="
+	 *         + location.getYaw();
+	 */
+	public static String toString(Location location, boolean full, boolean castToInt) {
+		StringJoiner joiner = new StringJoiner(" ");
+		String X = "X=" + (castToInt ? (int) location.getX() : location.getX());
+		String Y = "Y=" + (castToInt ? (int) location.getY() : location.getY());
+		String Z = "Z=" + (castToInt ? (int) location.getZ() : location.getZ());
+
+		join(joiner, X, Y, Z);
+		if (full)
+			join(joiner, "Pitch=" + location.getPitch(), "Yaw=" + location.getYaw());
+		return joiner.toString();
+	}
+
+	/**
+	 * Method used to display the given location to minecraft player.
+	 * 
 	 * @param location The location to display.
 	 * @param full     If should display pitch an yaw.
 	 * @return "X=" + location.getX() + " Y=" + location.getY() + " Z=" + location.getZ() + " Pitch=" + location.getPitch() + " Yaw="
 	 *         + location.getYaw();
 	 */
 	public static String toString(Location location, boolean full) {
-		StringJoiner joiner = new StringJoiner(" ");
-		join(joiner, "X=" + location.getX(), "Y=" + location.getY(), "Z=" + location.getZ());
-		if (full)
-			join(joiner, "Pitch=" + location.getPitch(), "Yaw=" + location.getYaw());
-		return joiner.toString();
+		return toString(location, full, false);
 	}
 
 	/**
