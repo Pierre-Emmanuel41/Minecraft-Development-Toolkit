@@ -52,9 +52,9 @@ public class DisplayHelper {
 	 */
 	public static String toString(Location location, boolean full, boolean castToInt) {
 		StringJoiner joiner = new StringJoiner(" ");
-		String X = "X=" + (castToInt ? (int) location.getX() : location.getX());
-		String Y = "Y=" + (castToInt ? (int) location.getY() : location.getY());
-		String Z = "Z=" + (castToInt ? (int) location.getZ() : location.getZ());
+		String X = "X=" + (castToInt ? location.getBlock().getX() : location.getX());
+		String Y = "Y=" + (castToInt ? location.getBlock().getY() : location.getY());
+		String Z = "Z=" + (castToInt ? location.getBlock().getZ() : location.getZ());
 
 		join(joiner, X, Y, Z);
 		if (full)
