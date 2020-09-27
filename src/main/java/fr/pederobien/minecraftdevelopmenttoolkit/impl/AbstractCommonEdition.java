@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
+import fr.pederobien.minecraftdevelopmenttoolkit.exceptions.BooleanParseException;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.ICommonEdition;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IGenericEdition;
 import fr.pederobien.persistence.interfaces.IUnmodifiableNominable;
@@ -82,7 +83,7 @@ public abstract class AbstractCommonEdition<T, U extends IGenericEdition<T>, V> 
 	 */
 	protected boolean isStrictInt(String number) {
 		try {
-			Integer.parseInt(number);
+			getInt(number);
 		} catch (NumberFormatException e) {
 			return false;
 		}
@@ -119,7 +120,7 @@ public abstract class AbstractCommonEdition<T, U extends IGenericEdition<T>, V> 
 	 */
 	protected boolean isStrictDouble(String number) {
 		try {
-			Double.parseDouble(number);
+			getDouble(number);
 		} catch (NumberFormatException e) {
 			return false;
 		}
@@ -148,7 +149,7 @@ public abstract class AbstractCommonEdition<T, U extends IGenericEdition<T>, V> 
 	 */
 	protected boolean isStrictTime(String time) {
 		try {
-			LocalTime.parse(time);
+			getTime(time);
 			return true;
 		} catch (DateTimeParseException e) {
 			return false;
@@ -200,6 +201,58 @@ public abstract class AbstractCommonEdition<T, U extends IGenericEdition<T>, V> 
 	 */
 	protected int getInt(String number) {
 		return Integer.parseInt(number);
+	}
+
+	/**
+	 * Returns a new {@code double} initialized to the value represented by the specified {@code String}, as performed by the
+	 * {@code valueOf} method of class {@code Double}.
+	 *
+	 * @param number The string to be parsed.
+	 * 
+	 * @return The {@code double} value represented by the string argument.
+	 * 
+	 * @throws NullPointerException  If the string is null.
+	 * @throws NumberFormatException If the string does not contain a parsable {@code double}.
+	 * @see java.lang.Double#valueOf(String)
+	 */
+	protected double getDouble(String number) {
+		return Double.parseDouble(number);
+	}
+
+	/**
+	 * Obtains an instance of {@code LocalTime} from a text string such as {@code 10:15}.
+	 * <p>
+	 * The string must represent a valid time and is parsed using {@link java.time.format.DateTimeFormatter#ISO_LOCAL_TIME}.
+	 *
+	 * @param time The time to parse such as "10:15:30", not null.
+	 * 
+	 * @return The parsed local time, not null.
+	 * 
+	 * @throws DateTimeParseException If the text cannot be parsed.
+	 */
+	protected LocalTime getTime(String time) {
+		return LocalTime.parse(time);
+	}
+
+	/**
+	 * Parses the string argument as a boolean. The {@code boolean} returned represents the value {@code true} if and only if the
+	 * string argument equals, ignoring case, to the string {@code "true"} or represents the value {@code false} if and only if the
+	 * string argument equals, ignoring case, to the string {@code "false"}.
+	 * <p>
+	 * Example: {@code Boolean.parseBoolean("True")} returns {@code true}.<br>
+	 *
+	 * @param bool the {@code String} containing the boolean representation to be parsed
+	 * @return the boolean represented by the string argument
+	 * 
+	 * @throws BooleanParseException If the the string argument is neither equal, ignoring case, to {@code "true"} nor
+	 *                               {@code "false"}.
+	 */
+	protected boolean getBoolean(String bool) {
+		if (bool.equalsIgnoreCase("true"))
+			return true;
+		if (bool.equalsIgnoreCase("false"))
+			return false;
+		throw new BooleanParseException(bool);
 	}
 
 	/**
