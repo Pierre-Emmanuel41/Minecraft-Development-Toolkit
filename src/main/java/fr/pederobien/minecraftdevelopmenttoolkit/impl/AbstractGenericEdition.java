@@ -191,7 +191,8 @@ public abstract class AbstractGenericEdition<T> implements IGenericEdition<T> {
 	 * @param strings the array by which the list will be backed.
 	 * @return A list view of the specified array.
 	 */
-	protected List<String> asList(String... strings) {
+	@SuppressWarnings("unchecked")
+	protected <U> List<U> asList(U... strings) {
 		return Arrays.asList(strings);
 	}
 }
