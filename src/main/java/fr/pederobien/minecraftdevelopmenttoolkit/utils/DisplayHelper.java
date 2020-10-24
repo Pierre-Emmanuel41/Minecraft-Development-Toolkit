@@ -5,6 +5,8 @@ import java.time.LocalTime;
 import java.util.StringJoiner;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
 
 public class DisplayHelper {
@@ -109,6 +111,17 @@ public class DisplayHelper {
 	 */
 	public static String toString(Integer integer, String unit) {
 		return join(integer.toString(), unit);
+	}
+
+	/**
+	 * Get the name of the material using its {@link NamespacedKey#getKey()}.
+	 * 
+	 * @param material The material to get its name.
+	 * 
+	 * @return A String.
+	 */
+	public static String toString(Material material) {
+		return material.getKey().getKey();
 	}
 
 	private static String join(String... toJoin) {
