@@ -100,6 +100,17 @@ public class DisplayHelper {
 		return decimalFormat.format(number);
 	}
 
+	/**
+	 * Get a string that looks like : <code>integer.toString() + " " + unit</code>
+	 * 
+	 * @param integer The integer to associate to a unit
+	 * @param unit    The unit associated to the integer.
+	 * @return A string.
+	 */
+	public static String toString(Integer integer, String unit) {
+		return join(integer.toString(), unit);
+	}
+
 	private static String join(String... toJoin) {
 		return join(new StringJoiner(" "), toJoin);
 	}
