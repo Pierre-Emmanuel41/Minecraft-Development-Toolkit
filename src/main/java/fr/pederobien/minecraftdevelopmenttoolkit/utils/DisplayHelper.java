@@ -121,7 +121,19 @@ public class DisplayHelper {
 	 * @return A String.
 	 */
 	public static String toString(Material material) {
-		return material.getKey().getKey();
+		return toString(material, false);
+	}
+
+	/**
+	 * Get the name of the material using its {@link NamespacedKey#getKey()}.
+	 * 
+	 * @param material    The material to get its name.
+	 * @param isBeautiful If true then the character <code>"_"</code> is replace by the character <code>" "</code>
+	 * 
+	 * @return A String.
+	 */
+	public static String toString(Material material, boolean isBeautiful) {
+		return isBeautiful ? material.getKey().getKey().replace("_", " ") : material.getKey().getKey();
 	}
 
 	private static String join(String... toJoin) {
