@@ -121,7 +121,7 @@ public class DisplayHelper {
 	 * @return A String.
 	 */
 	public static String toString(Material material) {
-		return material.getKey().getKey().replace("_", " ");
+		return material.getKey().getKey();
 	}
 
 	private static String join(String... toJoin) {
