@@ -1,0 +1,6 @@
+[submodule "minecraft-dictionary"]
+	path = minecraft-dictionary
+	url = https://github.com/Pierre-Emmanuel41/minecraft-dictionary.git
+[submodule "minecraft-scoreboards"]
+	path = minecraft-scoreboards
+	url = https://github.com/Pierre-Emmanuel41/minecraft-scoreboards.git
