@@ -8,12 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
-import java.util.stream.Collectors;
 
 import fr.pederobien.minecraftdevelopmenttoolkit.exceptions.BooleanParseException;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.ICommonEdition;
 import fr.pederobien.minecraftdevelopmenttoolkit.interfaces.IGenericEdition;
-import fr.pederobien.persistence.interfaces.IUnmodifiableNominable;
 
 public abstract class AbstractCommonEdition<T, U extends IGenericEdition<T>, V> extends AbstractGenericEdition<T> implements ICommonEdition<T, U, V> {
 	private boolean isAvailable, isModifiable;
@@ -319,29 +317,5 @@ public abstract class AbstractCommonEdition<T, U extends IGenericEdition<T>, V> 
 	 */
 	protected String concat(List<String> strings) {
 		return concat(strings, ", ");
-	}
-
-	/**
-	 * Concatenate the name of each element present in the given list <code>names</code>.
-	 * 
-	 * @param names A list that contains elements to concatenate.
-	 * 
-	 * @return A concatenation of each name using delimiter ", ".
-	 * 
-	 * @see #concat(List, CharSequence)
-	 */
-	protected <N extends IUnmodifiableNominable> String concatNames(List<N> names) {
-		return concat(names.stream().map(e -> e.getName()).collect(Collectors.toList()));
-	}
-
-	/**
-	 * Concatenate the name of each element present in the given list <code>names</code> using the given delimiter.
-	 * 
-	 * @param names     The list that contains element to concatenate.
-	 * @param delimiter the sequence of characters to be used between each element added to the concatenation value.
-	 * @return The concatenation of each string.
-	 */
-	protected <N extends IUnmodifiableNominable> String concatNames(List<N> names, CharSequence delimiter) {
-		return concat(names.stream().map(e -> e.getName()).collect(Collectors.toList()), delimiter);
 	}
 }
